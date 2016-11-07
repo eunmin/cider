@@ -1,13 +1,12 @@
-## Running tests
+## 테스트 실행하기
 
-You can run `clojure.test` tests pretty quickly in CIDER. Pressing <kbd>C-c C-t
-n</kbd> or <kbd>C-c C-t C-n</kbd> in a source buffer or a REPL buffer will run
-the tests for the namespace you're currently in. CIDER is smart enough to figure
-out the namespace containing the tests. You can also run all loaded tests with
-<kbd>C-c C-t l</kbd> or <kbd>C-c C-t C-l</kbd> and all tests within a project
-with <kbd>C-c C-t p</kbd> or <kbd>C-c C-t C-p</kbd> (note that this will load
-**all** namespaces in your project). Using <kbd>C-c C-t t</kbd> or <kbd>C-c C-t
-C-t</kbd>, you can execute only the test a point.
+CIDER 안에서 `clojure.test` 테스트를 빠르게 실행할 수 있습니다. 소스 버퍼나 REPL 버퍼에서
+<kbd>C-c C-t n</kbd> 이나 <kbd>C-c C-t C-n</kbd> 키를 누르면 현재 네임스페이스에 관련된
+테스트를 실행합니다. CIDER 테스트가 포함되어 있는 네임스페이스를 스스로 찾을 수 있습니다.
+<kbd>C-c C-t l</kbd> 이나 <kbd>C-c C-t C-l</kbd> 키를 누르면 프로젝트에 로드된 모든 테스트를
+실행 할 수 있고  <kbd>C-c C-t p</kbd> 이나 <kbd>C-c C-t C-p</kbd> 키로 프로젝트에 포함된
+모든 테스트를 실행할 수 있습니다. (프로젝트에 **all** 네임 스페이스) 또 <kbd>C-c C-t t</kbd> 이나
+ <kbd>C-c C-t C-t</kbd> 키로 특정 테스트를 따로 실행 할 수도 있습니다.
 
 All test commands are available in REPL buffers as well. There you can also use
 <kbd>,</kbd> to invoke some of the testing commands.
