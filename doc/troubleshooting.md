@@ -1,32 +1,27 @@
-In case you run into issues here are a few tips that can help you diagnose the
-problem.
+이 글은 문제 해결에 도움이 될 만 한 팁을 몇 가지 소개합니다. 문제가 발생한 경우 참조 하세요.]
 
-Generally, it's not a bad idea to configure Emacs to spit the backtrace on error
-(instead of just logging the error in the `*Messages*` buffer. You can toggle
-this behavior by using <kbd>M-x</kbd> `toggle-debug-on-error`.
+`*Messages*` 버퍼에 있는 로그를 보는 것 대신 에러 내용을 볼 수 있도록 이맥스를 설정하는 것이 좋습니다.
+<kbd>M-x</kbd>키를 누르고 `toggle-debug-on-error`하면 활성화 할 수 있습니다.
 
-## Debugging CIDER commands
+## CIDER 명령어 디버깅하기
 
-Emacs features a super powerful built-in
-[Emacs Lisp debugger](http://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html)
-and using it is the best way to diagnose problems of any kind.
+이맥스는 [Emacs Lisp debugger](http://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html)라는
+강력한 기능이 있습니다. 이 기능으로 문제를 파악하는 것이 가장 좋은 방법입니다.
 
-Here's a [great crash course](https://www.youtube.com/watch?v=odkYXXYOxpo) on
-using the debugger.
+여기에 ([great crash course](https://www.youtube.com/watch?v=odkYXXYOxpo)) 디버거를
+서용하는 방법이 잘 설명되어 있습니다.
 
-To debug some command you need to do the following:
+어떤 명령어를 디버깅하려면 다음과 같이 합니다:
 
-* Figure out the name of the command you want to debug (e.g. by using <kbd>C-h k</kbd>
-to see which command is associated with some keybinding)
-* Find the source of the command (e.g. by using <kbd>M-x</kbd> `find-function`
-  <kbd>RET</kbd> `function-name`)
-* Press <kbd>C-u C-M-x</kbd> while in the body of the function
-* Run the command again
+* 디버깅할 명령어를 알아냅니다.(예 <kbd>C-h k</kbd>로 키바인딩과 연결된 명령어를 알 수 있습니다.)
+* 명령어의 소스 코드를 찾습니다.(예  <kbd>M-x</kbd> `find-function`를 입력하고 <kbd>RET</kbd>
+  를 누르고 `function-name`을 입력합니다.)
+* 함수 안에 커서를 놓고 <kbd>C-u C-M-x</kbd>키를 누릅니다.
+* 커맨드를 다시 실행합니다.
 
-At this point you'll be dropped in the debugger and you can step forward until
-you find the problem.
+이렇게 하면 디버거 모드로 들어가게 되고 문제를 찾을 때까지 진행하면 됩니다.
 
-## REPL not starting
+## REPL이 실행되지 않음
 
 Make sure that your CIDER version matches your `cider-nrepl` version. Check
 the contents of the `*Messages*` buffer for CIDER-related errors. You should
@@ -116,43 +111,40 @@ that the order here matters.
 Emacs doesn't load the new files, it only installs them on disk.  To see the
 effect of changes you have to restart Emacs.
 
-## CIDER complains of the `cider-nrepl` version
+## `cider-nrepl` 버전 관련된 문제
 
-This is a warning displayed on the REPL buffer when it starts, and usually looks like this:
+이 경우 보통 REPL이 실행 될 때 REPL 버퍼에 다음과 같은 경고가 표시 됩니다:
 
 > **WARNING:** CIDER's version (0.12.0) does not match cider-nrepl's version (...). Things will break!
 
-where `...` might be an actual version, like `0.10.0`, or it might be `not installed` or `nil`.
-The solution to this depends on what you see and on what you're doing.
+`...` 부분에 `0.10.0`나 `not installed` 또는 `nil` 같은 것이 적혀있고 이것이 실제 버전입니다.
+여기에 뭐가 적혀있는지에 따라 해결 방법이 나뉩니다.
 
-### You see a number like `X.X.X`, and you're starting the REPL with `cider-connect`
+### `cider-connect`으로 REPL을 실행하고 `X.X.X` 처럼 생긴 버전이 적혀 있는 경우
 
-Your project specifies the wrong version for the cider-nrepl middleware. See the
-[instructions](http://cider.readthedocs.org/en/latest/installation/#ciders-nrepl-middleware)
-on the Installation section.
+프로젝트에 cider-nrepl 미들웨어 버전이 잘 못되어 있습니다.
+[instructions](http://cider.readthedocs.org/en/latest/installation/#ciders-nrepl-middleware)에
+설치 부분을 참고 하세요.
 
-### You see `not installed` or `nil`, and you're starting the REPL with `cider-connect`
+### `cider-connect`으로 REPL을 실행하고 `not installed` 또는 `nil`이 적혀 있는 경우
 
-To use `cider-connect` you need to add the cider-nrepl middleware to your project. See the
-[instructions](http://cider.readthedocs.org/en/latest/installation/#ciders-nrepl-middleware)
-on the Installation section.
+`cider-connect`을 사용하려면 프로젝트에 cider-nrepl 미들웨어를 추가해줘야 합니다.
+[instructions](http://cider.readthedocs.org/en/latest/installation/#ciders-nrepl-middleware)에
+설치 부분을 참고 하세요.
 
-### You see `not installed` or `nil`, and you're starting the REPL with `cider-jack-in`
+### `cider-jack-in`으로 REPL을 실행하고 `not installed` 또는 `nil`이 적혀 있는 경우
 
-- Do `C-h v cider-inject-dependencies-at-jack-in`, and check that this variable is non-nil.
-- Make sure your project depends on at least Clojure `1.7.0`.
-- If you use leiningen, make sure your `lein --version` is at least `2.6.1`.
-- If you use boot and you've changed `cider-boot-parameters`, that's probably the cause.
+- `C-h v cider-inject-dependencies-at-jack-in`를 실행해서 값이 nil이 아닌지 확인합니다.
+- 프로젝트가 Clojure `1.7.0` 이상 사용하도록 합니다.
+- leiningen을 사용한다면 `lein --version`으로 `2.6.1` 버전 이상인지 확인합니다.
+- boot를 사용하고 `cider-boot-parameters` 값을 바꿨다면 그것 때문에 문제가 발생할 수 있습니다.
 
-If the above doesn't work, you can try specifying the cider-nrepl middleware
-manually, as per the
-[instructions](http://cider.readthedocs.org/en/latest/installation/#ciders-nrepl-middleware)
-on the Installation section.
+위에 것을 모두 확인했는데도 문제가 해결되지 않는다면 cider-nrepl 미들웨어 버전을 수동으로 설정해줘야 합니다.
+[instructions](http://cider.readthedocs.org/en/latest/installation/#ciders-nrepl-middleware)에
+설치 부분을 참고 하세요.
 
-### You see a number like `X.X.X`, and you're starting the REPL with `cider-jack-in`
+###  `cider-jack-in`으로 REPL을 실행하고 `X.X.X` 처럼 생긴 버전이 적혀 있는 경우
 
-This means you're manually adding the cider-nrepl middleware in your project,
-but you shouldn't do that because `cider-jack-in` already does that for
-you. Look into the following files, and ensure you've removed all references to
-`cider-nrepl` and `tools.nrepl`: `project.clj`, `build.boot`,
-`~/.lein/profiles.clj` and `~/.boot/profile.boot`.
+이 경우는 프로젝트에 cider-nrepl 미들웨어를 추가를 했지만 `cider-jack-in`이 이미 버전을 설정하고
+있기 때문에 그렇습니다. 그래서 다음과 같은 파일에 미들웨어 추가된 것이 있다면 제거하세요. `cider-nrepl`
+`tools.nrepl`: `project.clj`, `build.boot`, `~/.lein/profiles.clj`, `~/.boot/profile.boot`.
