@@ -1,23 +1,18 @@
-CIDER ships with a powerful interactive Clojure debugger inspired by Emacs's own
-[Edebug][]. You're going to love it!
+CIDER는 이맥스 [Edebug][]에 영향을 받아 만든 클로저 디버거 기능이 있습니다. 써 보면 좋을 꺼에요!
 
 ![CIDER Debugger](images/cider_debugger.gif)
 
-## Debugging
+## 디버깅
 
-The debugger can be invoked in several ways, the simplest one is to type
-<kbd>C-u C-M-x</kbd>. This will take the current top-level form, place as many
-breakpoints inside it as possible (instrument it), and then evaluate it as
-normal. Whenever a breakpoint is reached, you'll be shown the value and asked
-for input (see below). Note that if the current form is a `defn`, it will stay
-instrumented, so the debugger will be triggered every time the function is
-called. To uninstrument `defn` (or similar forms), you just have to evaluate it
-again as you'd normally do (e.g. with <kbd>C-M-x</kbd>).
+디버거는 몇 가지 방법으로 실행할 수 있지만 가장 쉬운 방법은 <kbd>C-u C-M-x</kbd>를 입력하는 것입니다.
+그러면 현재 최상의 폼 안에서 가능한(instrument it) 많은 위치에 브레이크포인트를 설정하고 일반적인 방법으로
+평가합니다. 브레이크포인트에 걸리면 해당 값을 볼 수 있고 디버거 명령어를 입력할 수 있는 모드가 됩니다.
+(아래 내용 참조) 만약 현재 폼이 `defn`이면 인스투르먼트 된 상태가 되고 함수를 부를 때마다 디버거가 동작합니다.
+`defn`(또는 비슷한 폼) 인스투르먼트를 취소하려면 그냥 다시 평가해주면 됩니다. (예. <kbd>C-M-x</kbd>)
 
-Another way to trigger the debugger is by placing breakpoints yourself. Just
-write `#break` before a form, and the debugger will popup every time that form is
-evaluated. For instance, if you hit <kbd>C-M-x</kbd> on the following, a
-breakpoint is triggered every time `(inspector msg)` is evaluated.
+브레이크포인트를 지정해서 디버거를 실행할 수 도 있습니다. 폼 앞에 `#break`라고 써주면 해당 폼이 평가될 때
+마다 디버거가 실행됩니다. 예를 들어 아래 코드에 <kbd>C-M-x</kbd>를 하면 `(inspector msg)`가
+평가 될 때마다 디버거가 실행됩니다.
 
 ```clojure
 (defn eval-msg [{:keys [inspect] :as msg}]
@@ -26,18 +21,15 @@ breakpoint is triggered every time `(inspector msg)` is evaluated.
     msg))
 ```
 
-Instead of `#break` you can also write `#dbg` before a form, this will not only
-breakpoint the form but also everything inside it. In the example above, this
-places a breakpoint around `(inspector msg)` and another around `msg`. If you've
-been paying attention, you may have noticed that the first option (<kbd>C-u
-C-M-x</kbd>) is a quick way of evaluating the current top-level form with `#dbg`
-in front.
+폼 앞에 `#break` 대신 `#dbg`를 사용하면 바깥의 폼에 브레이크포인트 만 걸리는 것이 아니고 안쪽에 있는
+모든 항목에 브레이크포인트가 걸린 것 처럼 동작합니다. 위의 예에서는 `(inspector msg)` 폼과 안에 있는
+`msg` 모두 브레이크포인트가 걸립니다. 잘 봤다면 디버거를 실행하는 첫번째 방법(<kbd>C-u C-M-x</kbd>)이
+현재 최상의 폼에 `#dbg`를 걸어주는 역할을 한다는 것을 알 수 있을 겁니다.
 
-At any point, you can bring up a list of all currently instrumented `def`s with
-the command <kbd>M-x</kbd> `cider-browse-instrumented-defs`. Protocols and types
-can be instrumented as well, but they will not be listed by this command.
+어떤 위치에서든 <kbd>M-x</kbd> `cider-browse-instrumented-defs`를 입력해서 디버거가 걸려있는
+모든 `def` 목록을 확인 할 수 있습니다. 프로토콜과 타입에도 디버거를 걸 수 있지만 리스트에는 표시되지 않습니다.
 
-## Keys
+## 키
 
 `cider-debug` tries to be consistent with [Edebug][], although there are some
 differences. It makes available the following bindings while stepping through
